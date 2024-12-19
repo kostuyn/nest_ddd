@@ -19,6 +19,8 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@/modules/*": ["src/modules/*"],
+      "@/config/*": ["src/config/*"],
+      "@/logger/*": ["src/logger/*"],
     }
   }
 }

@@ -4,7 +4,7 @@ import { LoggerConfig } from 'src/config/logger.config';
 import { NodeConfig } from 'src/config/node.config';
 import { ServerConfig } from 'src/config/server.config';
 
-type Config = NodeConfig | ServerConfig | LoggerConfig;
+export type Config = NodeConfig | ServerConfig | LoggerConfig;
 
 class ValidatedResult {
   result: Config;

@@ -1,8 +1,10 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { validate } from 'src/config/app.config';
+import { InitLoggerMiddleware } from './logger/request-id.middleware';
+import { LoggerModule } from 'src/logger/logger.module';
 
 @Module({
   imports: [
@@ -10,6 +12,7 @@ import { validate } from 'src/config/app.config';
       isGlobal: true,
       validate: validate,
     }),
+    LoggerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
