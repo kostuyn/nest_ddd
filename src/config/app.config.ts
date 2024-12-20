@@ -4,16 +4,28 @@ import { LoggerConfig } from 'src/config/logger.config';
 import { NodeConfig } from 'src/config/node.config';
 import { ServerConfig } from 'src/config/server.config';
 
-export type Config = NodeConfig | ServerConfig | LoggerConfig;
+type ConfigList =
+  NodeConfig |
+  ServerConfig |
+  LoggerConfig;
+
+export type Config =
+  NodeConfig &
+  ServerConfig &
+  LoggerConfig;
+
+const configList: ClassConstructor<ConfigList>[] = [
+  NodeConfig,
+  ServerConfig,
+  LoggerConfig
+];
 
 class ValidatedResult {
-  result: Config;
+  result: ConfigList;
   errors: string[] = [];
 }
 
 export function validate(config: Record<string, unknown>) {
-  const configList = [NodeConfig, ServerConfig, LoggerConfig];
-
   const { result, errors } = configList.reduce((prevValue, cls) => {
     const validatedResult = validateConfig(cls, config);
 
@@ -36,7 +48,7 @@ export function validate(config: Record<string, unknown>) {
   return result;
 }
 
-function validateConfig<T extends ClassConstructor<Config>>(
+function validateConfig<T extends ClassConstructor<ConfigList>>(
   t: T,
   config: Record<string, unknown>,
 ): ValidatedResult {
@@ -44,6 +56,7 @@ function validateConfig<T extends ClassConstructor<Config>>(
 
   const errors = validateSync(validatedConfig, {
     skipMissingProperties: false,
+    forbidUnknownValues: true,
   });
 
   const errorMessages = parseErrors(t.name, errors);

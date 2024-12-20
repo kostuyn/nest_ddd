@@ -13,8 +13,7 @@ export type LoggerSerializers = {
 };
 
 export function loggerParamsFactory(
-  // todo: create correct type
-  config: ConfigService<LoggerConfig> & ConfigService<NodeConfig>,
+  config: ConfigService<NodeConfig & LoggerConfig>,
 ): LoggerOptions {
   const logLevel = config.get('level', { infer: true });
   const transport = getTransport(config);
@@ -42,14 +41,6 @@ export function loggerParamsFactory(
         return JSON.stringify(data);
       },
     },
-    // serializers: {
-    //     req(req){
-
-    //     }
-    // },
-    // serializers:{
-
-    // },
     ...transport,
   };
 
