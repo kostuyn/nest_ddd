@@ -1,4 +1,4 @@
-import { Config } from '@/config/app.config';
+import { ConfigFactory, Config } from '@/config/config.factory';
 import {
   loggerParamsFactory,
   LoggerSerializers,
@@ -7,6 +7,7 @@ import { Injectable, LoggerService, LogLevel } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AsyncLocalStorage } from 'async_hooks';
 import pino, { Logger, LoggerOptions } from 'pino';
+import { context } from '@/logger/context';
 
 @Injectable()
 export class CustomLogger implements LoggerService {
@@ -17,6 +18,11 @@ export class CustomLogger implements LoggerService {
     private readonly config: ConfigService<Config>,
   ) {
     this.options = loggerParamsFactory(this.config);
+  }
+
+  static create(): CustomLogger {
+    const config = ConfigFactory.createConfigService();
+    return new CustomLogger(context, config);
   }
 
   get logger(): Logger {

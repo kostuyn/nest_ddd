@@ -17,7 +17,6 @@ export class InitLoggerMiddleware implements NestMiddleware {
     res.setHeader('X-Request-Id', requestId);
 
     const logger = this.customLogger.logger.child({ requestId });
-
     this.context.run(logger, next);
   }
 }

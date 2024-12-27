@@ -1,9 +1,16 @@
 import { CustomLogger } from 'src/logger/custom-logger';
 import { Injectable } from '@nestjs/common';
+import { Config } from '@/config/config.factory';
+import { ConfigService } from '@nestjs/config';
+
+const logger = CustomLogger.create();
 
 @Injectable()
 export class AppService {
-  constructor(private readonly logger: CustomLogger) {}
+  constructor(
+    private readonly config: ConfigService<Config>,
+    private readonly logger: CustomLogger,
+  ) {}
 
   getHello(): string {
     this.logger.log('Hello World!');
@@ -16,6 +23,11 @@ export class AppService {
     // this.logger.warn('My FooBar!!!', {foo: 'bar'});
     // this.logger.error(new Error('Error message'), 'My error!');
     // throw new Error('My NEW error!');
+
+    this.logger.log('My config', {
+      data: { aa: this.config.get('app.host', { infer: true }) },
+    });
+    logger.warn('Static logger');
     return 'Hello World!';
   }
 }

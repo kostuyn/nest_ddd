@@ -21,6 +21,8 @@
       "@/modules/*": ["src/modules/*"],
       "@/config/*": ["src/config/*"],
       "@/logger/*": ["src/logger/*"],
+      "@/otel/*": ["src/otel/*"],
+      "@/shared/*": ["src/shared/*"],
     }
   }
 }

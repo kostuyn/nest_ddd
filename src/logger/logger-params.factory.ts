@@ -1,3 +1,4 @@
+import { Config } from '@/config/config.factory';
 import { LoggerConfig } from '@/config/logger.config';
 import { Environment, NodeConfig } from '@/config/node.config';
 import { ConfigService } from '@nestjs/config';
@@ -13,15 +14,17 @@ export type LoggerSerializers = {
 };
 
 export function loggerParamsFactory(
-  config: ConfigService<NodeConfig & LoggerConfig>,
+  config: ConfigService<Config>,
 ): LoggerOptions {
-  const logLevel = config.get('level', { infer: true });
+  const logLevel = config.get('logger.level', { infer: true });
   const transport = getTransport(config);
 
   const options: LoggerOptions = {
     level: logLevel,
     messageKey: 'message',
     errorKey: 'error',
+    // todo: add redact
+    redact: [],
     timestamp: pino.stdTimeFunctions.isoTime,
     formatters: {
       level(label: string): object {
@@ -47,8 +50,8 @@ export function loggerParamsFactory(
   return options;
 }
 
-function getTransport(config: ConfigService<NodeConfig>): LoggerOptions {
-  const env = config.get('nodeEnv', { infer: true });
+function getTransport(config: ConfigService<Config>): LoggerOptions {
+  const env = config.get('node.nodeEnv', { infer: true });
   if (env === Environment.DEV) {
     return {
       transport: {

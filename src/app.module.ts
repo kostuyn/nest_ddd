@@ -2,14 +2,15 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
-import { validate } from 'src/config/app.config';
+import { ConfigFactory } from '@/config/config.factory';
 import { LoggerModule } from 'src/logger/logger.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      validate: validate,
+      validate: ConfigFactory.createConfig.bind(ConfigFactory),
+      envFilePath: ConfigFactory.envFile,
     }),
     LoggerModule,
   ],
