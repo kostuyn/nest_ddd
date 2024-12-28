@@ -1,9 +1,6 @@
 import { CustomLogger } from 'src/logger/custom-logger';
 import { Injectable, NestMiddleware } from '@nestjs/common';
-import { AsyncLocalStorage } from 'async_hooks';
 import { IncomingMessage, ServerResponse } from 'node:http';
-import { Logger } from 'pino';
-import { uuidv7 } from 'uuidv7';
 
 @Injectable()
 export class ReqResMiddleware implements NestMiddleware {

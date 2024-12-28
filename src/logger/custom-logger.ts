@@ -3,7 +3,7 @@ import {
   loggerParamsFactory,
   LoggerSerializers,
 } from 'src/logger/logger-params.factory';
-import { Injectable, LoggerService, LogLevel } from '@nestjs/common';
+import { Injectable, LoggerService } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AsyncLocalStorage } from 'async_hooks';
 import pino, { Logger, LoggerOptions } from 'pino';
@@ -51,10 +51,6 @@ export class CustomLogger implements LoggerService {
 
   fatal(message: any, data?: LoggerSerializers) {
     this.call('fatal', message, data);
-  }
-
-  setLogLevels?(levels: LogLevel[]) {
-    throw new Error('Method not implemented.');
   }
 
   private call(method: string, message: any, ...optionalParams: any[]) {

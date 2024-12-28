@@ -1,11 +1,4 @@
-import {
-  ClassConstructor,
-  Exclude,
-  Expose,
-  plainToClassFromExist,
-  plainToInstance,
-  Type,
-} from 'class-transformer';
+import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { validateSync, ValidationError } from 'class-validator';
 import { LoggerConfig } from 'src/config/logger.config';
 import { NodeConfig } from 'src/config/node.config';
@@ -22,7 +15,7 @@ export class Config {
 }
 
 class ValidatedResult {
-  result: Object;
+  result: object;
   errors: string[] = [];
 }
 
@@ -63,7 +56,7 @@ export class ConfigFactory {
     return cfg;
   }
 
-  private static validateConfig<T extends ClassConstructor<Object>>(
+  private static validateConfig<T extends ClassConstructor<object>>(
     t: T,
     config: Record<string, unknown>,
   ): ValidatedResult {

@@ -2,7 +2,6 @@ import { otelSdk } from '@/otel/tracing';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
-import { ServerConfig } from './config/app.config';
 import { CustomLogger } from 'src/logger/custom-logger';
 import { Config } from '@/config/config.factory';
 

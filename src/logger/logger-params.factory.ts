@@ -1,6 +1,5 @@
 import { Config } from '@/config/config.factory';
-import { LoggerConfig } from '@/config/logger.config';
-import { Environment, NodeConfig } from '@/config/node.config';
+import { Environment } from '@/config/node.config';
 import { ConfigService } from '@nestjs/config';
 import { ServerResponse } from 'http';
 import { IncomingMessage } from 'node:http';

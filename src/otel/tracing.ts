@@ -1,5 +1,5 @@
 import { ConfigFactory } from '@/config/config.factory';
-import { Environment, NodeConfig } from '@/config/node.config';
+import { Environment } from '@/config/node.config';
 import { CustomLogger } from '@/logger/custom-logger';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-grpc';
 import { ExpressInstrumentation } from '@opentelemetry/instrumentation-express';
